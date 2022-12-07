@@ -40,7 +40,7 @@ export default function Home() {
                     <p>Result: <a href={result}>{result}</a></p>
                 </Col>
                 <Col>
-                    <Button variant="outline-primary" onClick={handleClick}>Copy</Button>
+                    <Button variant="primary" onClick={handleClick}>Copy</Button>
                 </Col>
             </Row>
           </Container>
