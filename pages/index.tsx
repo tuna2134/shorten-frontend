@@ -1,5 +1,8 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import { Container } from 'react-bootstrap'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -15,6 +18,10 @@ export default function Home() {
         setResult(r.data)
         toast.success("URL shortened successfully!")
     }
+    function handleClick() {
+        navigator.clipboard.writeText(result)
+        toast.success("Copied to clipboard!")
+    }
     return (
         <>
           <h2 className="home-title">短縮しよう！</h2>
@@ -27,7 +34,16 @@ export default function Home() {
                 Create
             </Button>
           </Form>
-          <p>Result: <a href={result}>{result}</a></p>
+          <Container>
+            <Row>
+                <Col xs={3}>
+                    <p>Result: <a href={result}>{result}</a></p>
+                </Col>
+                <Col>
+                    <Button variant="outline-primary" onClick={handleClick}>Copy</Button>
+                </Col>
+            </Row>
+          </Container>
         </>
     )
 }
