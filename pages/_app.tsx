@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
 import type { AppProps } from 'next/app'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (
@@ -20,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <main>
           <Component {...pageProps} />
         </main>
+        <ToastContainer />
       </>
     )
 }

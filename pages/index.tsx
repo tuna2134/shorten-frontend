@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import React from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export default function Home() {
     const [result, setResult] = React.useState("")
@@ -12,6 +13,7 @@ export default function Home() {
             url: event.target.url.value,
         })
         setResult(r.data)
+        toast.success("URL shortened successfully!")
     }
     return (
         <>
