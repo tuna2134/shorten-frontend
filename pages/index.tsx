@@ -22,33 +22,31 @@ export default function Home() {
         <TailSpin />
       </Container>
     );
-    const r = await axios.post("https://shor.f5.si/shorten", {
-      url: event.target.url.value,
-    });
-    if (r.status !== 200) {
-      toast.error("Failed to shorten URL!");
-      return;
+    try {
+      const r = await axios.post("https://shor.f5.si/shorten", {
+        url: event.target.url.value,
+      });
+      setResult(
+        <Container>
+          <Row>
+            <Col xs={3}>
+              <p>Result: {r.data}</p>
+            </Col>
+            <Col>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleClick(r.data);
+                }}
+              >
+                Copy
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      );
+      toast.success("URL shortened successfully!");
     }
-    setResult(
-      <Container>
-        <Row>
-          <Col xs={3}>
-            <p>Result: {r.data}</p>
-          </Col>
-          <Col>
-            <Button
-              variant="primary"
-              onClick={() => {
-                handleClick(r.data);
-              }}
-            >
-              Copy
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-    );
-    toast.success("URL shortened successfully!");
   }
   return (
     <>
