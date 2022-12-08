@@ -6,21 +6,38 @@ import Col from 'react-bootstrap/Col'
 import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { TailSpin } from 'react-loader-spinner'
 
 export default function Home() {
-    const [result, setResult] = React.useState("")
+    const [result, setResult] = React.useState(<Container></Container>)
+    function handleClick(url: string) {
+        navigator.clipboard.writeText(url)
+        toast.success("Copied to clipboard!")
+    }
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
         if (!(event.target instanceof HTMLFormElement)) return
+        setResult(
+            <Container>
+                <TailSpin />
+            </Container>
+        )
         const r = await axios.post("https://shor.f5.si/shorten", {
             url: event.target.url.value,
         })
-        setResult(r.data)
+        setResult(
+          <Container>
+            <Row>
+                <Col xs={3}>
+                    <p>Result: {r.data}</p>
+                </Col>
+                <Col>
+                    <Button variant="primary" onClick={() => {handleClick(r.data)}}>Copy</Button>
+                </Col>
+            </Row>
+          </Container>
+        )
         toast.success("URL shortened successfully!")
-    }
-    function handleClick() {
-        navigator.clipboard.writeText(result)
-        toast.success("Copied to clipboard!")
     }
     return (
         <>
@@ -34,18 +51,7 @@ export default function Home() {
                 Create
             </Button>
           </Form>
-            {!(result === "") && (
-                <Container>
-                    <Row>
-                        <Col xs={3}>
-                            <p>Result: <a href={result}>{result}</a></p>
-                        </Col>
-                        <Col>
-                            <Button variant="primary" onClick={handleClick}>Copy</Button>
-                        </Col>
-                    </Row>
-                </Container>
-            )}
+          {result}
         </>
     )
 }
