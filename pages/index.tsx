@@ -46,6 +46,8 @@ export default function Home() {
         </Container>
       );
       toast.success("URL shortened successfully!");
+    } catch {
+      toast.error("Failed to shorten URL!")
     }
   }
   return (
