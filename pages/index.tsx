@@ -34,16 +34,18 @@ export default function Home() {
                 Create
             </Button>
           </Form>
-          <Container>
-            <Row>
-                <Col xs={3}>
-                    <p>Result: <a href={result}>{result}</a></p>
-                </Col>
-                <Col>
-                    <Button variant="primary" onClick={handleClick}>Copy</Button>
-                </Col>
-            </Row>
-          </Container>
+            {!(result === "") && (
+                <Container>
+                    <Row>
+                        <Col xs={3}>
+                            <p>Result: <a href={result}>{result}</a></p>
+                        </Col>
+                        <Col>
+                            <Button variant="primary" onClick={handleClick}>Copy</Button>
+                        </Col>
+                    </Row>
+                </Container>
+            )}
         </>
     )
 }
