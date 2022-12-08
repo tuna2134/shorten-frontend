@@ -25,6 +25,10 @@ export default function Home() {
     const r = await axios.post("https://shor.f5.si/shorten", {
       url: event.target.url.value,
     });
+    if (r.status !== 200) {
+      toast.error("Failed to shorten URL!");
+      return;
+    }
     setResult(
       <Container>
         <Row>
